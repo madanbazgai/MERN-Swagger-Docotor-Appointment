@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
+// dotenv.config();
 import { connectDB } from "./db/db";
 import authRouter from "../src/Routes/authRoute";
 import userRouter from "../src/Routes/userRoute";
@@ -31,6 +31,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/doctor", doctorRouter);
 app.use("/api/reviews", reviewRouter);
+
+import swaggerUI from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {
   connectDB();
